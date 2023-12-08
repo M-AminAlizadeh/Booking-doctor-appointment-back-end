@@ -68,7 +68,8 @@ RSpec.describe 'v1/doctors', type: :request do
 
         response '201', 'doctor created' do
           let(:doctor) do
-            { name: 'docy', hospital: 'Struga', specialization: 'urology', cost_per_consult: 24, description: 'description' }
+            { name: 'docy', hospital: 'Struga', specialization: 'urology', cost_per_consult: 24,
+              description: 'description' }
           end
           schema type: :object,
                  properties: {

@@ -66,7 +66,8 @@ RSpec.describe 'V1::Doctors', type: :request do
 
     describe 'DELETE v1/doctors/:id' do
       before(:each) do
-        @doctor1 = Doctor.create(name: 'Doctor 2', hospital: 'Skopje', specialization: 'nervs',cost_per_consult: 30, description: 'heev ev ew v ewvewv')
+        @doctor1 = Doctor.create(name: 'Doctor 2', hospital: 'Skopje', specialization: 'nervs', cost_per_consult: 30,
+                                 description: 'heev ev ew v ewvewv')
       end
       it 'deletes a doctor with admin' do
         delete "/v1/doctors/#{@doctor1.id}",
