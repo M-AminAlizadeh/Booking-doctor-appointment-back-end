@@ -9,8 +9,8 @@ class Ability
       can :manage, :all
     else
       can :read, :all
-      can :create, Appointment
-      can :destroy, Appointment do |appointment|
+      can :create, Reservation
+      can :destroy, Reservation do |appointment|
         appointment.user_id == user.id
       end
     end
