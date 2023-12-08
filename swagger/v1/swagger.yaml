@@ -4,11 +4,11 @@ info:
   title: Book-a-doctor-api-v1
   version: v1
 paths:
-  "/v1/appointments":
+  "/v1/reservations":
     get:
-      summary: list appointments
+      summary: list reservations
       tags:
-      - Appointments
+      - Reservations
       consumes:
       - application/json
       parameters:
@@ -68,7 +68,7 @@ paths:
     post:
       summary: create appointment
       tags:
-      - Appointments
+      - Reservations
       consumes:
       - application/json
       security:
@@ -118,9 +118,9 @@ paths:
                     type: array
                   date_of_appointment:
                     type: array
-  "/v1/appointments/{id}":
+  "/v1/reservations/{id}":
       tags:
-      - Appointments
+      - Reservations
       consumes:
       - application/json
       parameters:
