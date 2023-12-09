@@ -23,7 +23,7 @@ development:
   <<: *default
   database: booking_doctor_appointment_back_end_development
   username: postgres
-  password: your password
+  password: n673927826
   host: localhost
 
   # The specified database role being used to connect to PostgreSQL.
@@ -60,7 +60,7 @@ test:
   <<: *default
   database: booking_doctor_appointment_back_end_test
   username: postgres
-  password: your password
+  password: n673927826
   host: localhost
 
 # As with config/credentials.yml, you never want to store sensitive information,
