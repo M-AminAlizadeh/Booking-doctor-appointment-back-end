@@ -8,6 +8,6 @@ Rails.application.routes.draw do
     post 'users/signup' => 'users#signup'
     get 'users/fetch_current_user' => 'users#fetch_current_user'
     resources :doctors, only: [:create, :destroy, :show, :index]
-    resources :reservations, only: [:create, :show, :index]
+    resources :reservations, only: [:create, :destroy, :show, :index]
   end
 end
