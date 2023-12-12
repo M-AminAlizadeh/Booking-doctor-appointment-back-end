@@ -27,7 +27,8 @@ class V1::ReservationsController < ApplicationController
   
     render json: { data: appointment, message: ['Reservation deleted'] }, status: :ok if appointment.destroyed?
   rescue StandardError => e
-    Rails.logger.error("Error destroying reservation: #{e.message}")
+    Rails.logger.error("Error destroying reservation: #{e.inspect}")
+    Rails.logger.error(e.backtrace.join("\n"))
     render json: { error: 'internal server error', error_message: ['An error occurred while processing your request.'] }, status: :internal_server_error
   end
 
