@@ -50,7 +50,7 @@ paths:
                           type: string
                         specialization:
                           type: string
-                        cost_per_consult:
+                        cost_per_day:
                           type: integer
                         description:
                           type: string
@@ -118,6 +118,7 @@ paths:
                     type: array
                   date_of_appointment:
                     type: array
+  "/v1/reservations/{id}":
     delete:
       tags:
       - Reservations
@@ -193,7 +194,7 @@ paths:
                 type: string
               specialization:
                 type: string
-              cost_per_consult:
+              cost_per_day:
                 type: integer
               description:
                 type: string
@@ -202,7 +203,7 @@ paths:
             - name
             - hospital
             - specialization
-            - cost_per_consult
+            - cost_per_day
             - description
         '404':
           description: doctor not found
@@ -270,7 +271,7 @@ paths:
               type: string
             hospital:
               type: string
-            cost_per_consult:
+            cost_per_day:
               type: integer
             description:
               type: string
@@ -280,7 +281,7 @@ paths:
           - name
           - specialization
           - hospital
-          - cost_per_consult
+          - cost_per_day
           - description
       responses:
         '201':
