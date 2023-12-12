@@ -23,15 +23,13 @@ class V1::ReservationsController < ApplicationController
   end
 
   def destroy
-    appointment = @current_user.reservations.find(params[:id]).destroy!
-  
-    render json: { data: appointment, message: ['Reservation deleted'] }, status: :ok if appointment.destroyed?
-  rescue ActiveRecord::RecordNotFound => e
-    render json: { error: 'not found', error_message: ["Reservation not found #{e}"] }, status: :not_found
-  rescue StandardError => e
-    Rails.logger.error("Error destroying reservation: #{e.inspect}")
-    Rails.logger.error(e.backtrace.join("\n"))
-    render json: { error: 'internal server error', error_message: ['An error occurred while processing your request.'] }, status: :internal_server_error
+    @reservation = Reservation.find(params[:id])
+
+    if @reservation.destroy
+      render json: { message: 'Reservation deleted successfully' }
+    else
+      render json: { error: 'Failed to delete reservation' }, status: :unprocessable_entity
+    end
   end
 
   def create
