@@ -23,13 +23,11 @@ class V1::ReservationsController < ApplicationController
   end
 
   def destroy
-    if @current_user.present?
-      appointment = @current_user.reservations.find(params[:id]).destroy!
+    appointment = @current_user.reservations.find(params[:id]).destroy!
   
-      render json: { data: appointment, message: ['Reservation deleted'] }, status: :ok if appointment.destroyed?
-    else
-      render json: { error: 'not found', error_message: ['User not found'] }, status: :not_found
-    end
+    render json: { data: appointment, message: ['Reservation deleted'] }, status: :ok if appointment.destroyed?
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { error: 'not found', error_message: ["Reservation not found #{e}"] }, status: :not_found
   rescue StandardError => e
     Rails.logger.error("Error destroying reservation: #{e.inspect}")
     Rails.logger.error(e.backtrace.join("\n"))
