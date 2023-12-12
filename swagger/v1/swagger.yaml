@@ -207,45 +207,49 @@ paths:
             - description
         '404':
           description: doctor not found
-    parameters:
-    - name: id
-      in: path
-      type: string
-      description: id
-      required: true
+    delete:
+      summary: Retrieves a doctor
       tags:
       - Doctors
-      produces:
-      - application/json
-      security:
-      - Bearer: {}
       parameters:
-      - name: Authorization
-        in: header
-        type: string
       - name: id
         in: path
         type: string
+        description: id
         required: true
-      responses:
-        '200':
-          description: Doctor deleted successfully
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-            required:
-            - message
-        '404':
-          description: No doctors found
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-              error_message:
-                type: array
+        tags:
+        - Doctors
+        produces:
+        - application/json
+        security:
+        - Bearer: {}
+        parameters:
+        - name: Authorization
+          in: header
+          type: string
+        - name: id
+          in: path
+          type: string
+          required: true
+        responses:
+          '200':
+            description: Doctor deleted successfully
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+              required:
+              - message
+          '404':
+            description: No doctors found
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                error_message:
+                  type: array
   "/v1/doctors":
     post:
       summary: Creates a doctor
