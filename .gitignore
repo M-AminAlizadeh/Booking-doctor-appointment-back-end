@@ -36,3 +36,4 @@
 # Ignore database configuration
 config/database.yml
 
+credentials
