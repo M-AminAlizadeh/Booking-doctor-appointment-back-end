@@ -50,7 +50,7 @@ paths:
                           type: string
                         specialization:
                           type: string
-                        cost_per_day:
+                        cost_per_consult:
                           type: integer
                         description:
                           type: string
@@ -194,7 +194,7 @@ paths:
                 type: string
               specialization:
                 type: string
-              cost_per_day:
+              cost_per_consult:
                 type: integer
               description:
                 type: string
@@ -203,53 +203,51 @@ paths:
             - name
             - hospital
             - specialization
-            - cost_per_day
+            - cost_per_consult
             - description
         '404':
           description: doctor not found
     delete:
-      summary: Retrieves a doctor
       tags:
       - Doctors
+      consumes:
+      - application/json
       parameters:
+      - name: Authorization
+        in: header
+        type: string
       - name: id
         in: path
         type: string
-        description: id
         required: true
-        tags:
-        - Doctors
-        produces:
-        - application/json
-        security:
-        - Bearer: {}
-        parameters:
-        - name: Authorization
-          in: header
-          type: string
-        - name: id
-          in: path
-          type: string
-          required: true
-        responses:
-          '200':
-            description: Doctor deleted successfully
-            schema:
-              type: object
-              properties:
-                message:
+      responses:
+        '200':
+          description: successful
+          schema:
+            type: object
+            properties:
+              message:
+                type: array
+                items:
                   type: string
-              required:
-              - message
-          '404':
-            description: No doctors found
-            schema:
-              type: object
-              properties:
-                error:
+              data:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  id:
+                    type: string
+        '404':
+          description: not found
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+              error_message:
+                type: array
+                items:
                   type: string
-                error_message:
-                  type: array
   "/v1/doctors":
     post:
       summary: Creates a doctor
@@ -275,7 +273,7 @@ paths:
               type: string
             hospital:
               type: string
-            cost_per_day:
+            cost_per_consult:
               type: integer
             description:
               type: string
@@ -285,7 +283,7 @@ paths:
           - name
           - specialization
           - hospital
-          - cost_per_day
+          - cost_per_consult
           - description
       responses:
         '201':
