@@ -34,24 +34,10 @@ class V1::DoctorsController < ApplicationController
   def create
     if @current_user.role == 'admin'
       @doctor = Doctor.new(doctor_params)
-
-      if params[:doctor][:image].present?
-        image_url = params[:doctor][:image]
-        begin
-          downloaded_image = URI.open(image_url)
-          @doctor.image.attach(io: downloaded_image, filename: File.basename(downloaded_image), content_type: downloaded_image.content_type)
-        rescue OpenURI::HTTPError, URI::InvalidURIError => e
-          Rails.logger.error("Error downloading or attaching image: #{e.message}")
-          render json: { error: 'unprocessable_entity', error_message: ["Error downloading or attaching image: #{e.message}"] }, status: :unprocessable_entity
-          return
-        end
-      end
-
       if @doctor.save
         render json: DoctorSerializer.new(@doctor).serializable_hash[:data][:attributes], status: :created
       else
-        Rails.logger.error("Error saving doctor: #{@doctor.errors.full_messages}")
-        render json: { error: 'unprocessable_entity', error_message: @doctor.errors.full_messages }, status: :unprocessable_entity
+        render json: @doctor.errors, status: :unprocessable_entity
       end
     else
       render json: { error: 'unauthorized', error_message: 'admin permission required' }, status: :unauthorized
@@ -71,6 +57,6 @@ class V1::DoctorsController < ApplicationController
   private
 
   def doctor_params
-    params.require(:doctor).permit(:name, :specialization, :hospital, :description, :cost_per_consult, :image)
+    params.require(:doctor).permit(:name, :specialization, :hospital, :description, :cost_per_consult, :image, :image_url)
   end
 end
