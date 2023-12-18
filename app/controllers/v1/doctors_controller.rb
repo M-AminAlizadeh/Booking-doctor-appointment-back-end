@@ -37,14 +37,20 @@ class V1::DoctorsController < ApplicationController
 
       if params[:doctor][:image].present?
         image_url = params[:doctor][:image]
-        downloaded_image = URI.open(image_url)
-
-        @doctor.image.attach(io: downloaded_image, filename: File.basename(downloaded_image), content_type: downloaded_image.content_type)
+        begin
+          downloaded_image = URI.open(image_url)
+          @doctor.image.attach(io: downloaded_image, filename: File.basename(downloaded_image), content_type: downloaded_image.content_type)
+        rescue OpenURI::HTTPError, URI::InvalidURIError => e
+          Rails.logger.error("Error downloading or attaching image: #{e.message}")
+          render json: { error: 'unprocessable_entity', error_message: ["Error downloading or attaching image: #{e.message}"] }, status: :unprocessable_entity
+          return
+        end
       end
 
       if @doctor.save
         render json: DoctorSerializer.new(@doctor).serializable_hash[:data][:attributes], status: :created
       else
+        Rails.logger.error("Error saving doctor: #{@doctor.errors.full_messages}")
         render json: { error: 'unprocessable_entity', error_message: @doctor.errors.full_messages }, status: :unprocessable_entity
       end
     else
