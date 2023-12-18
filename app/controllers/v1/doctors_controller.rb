@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class V1::DoctorsController < ApplicationController
   before_action :authorize_request, only: %i[index show create destroy]
 
@@ -32,13 +34,21 @@ class V1::DoctorsController < ApplicationController
   def create
     if @current_user.role == 'admin'
       @doctor = Doctor.new(doctor_params)
+
+      if params[:doctor][:image].present?
+        image_url = params[:doctor][:image]
+        downloaded_image = URI.open(image_url)
+
+        @doctor.image.attach(io: downloaded_image, filename: File.basename(downloaded_image), content_type: downloaded_image.content_type)
+      end
+
       if @doctor.save
         render json: DoctorSerializer.new(@doctor).serializable_hash[:data][:attributes], status: :created
       else
-        render json: @doctor.errors, status: :unprocessable_entity
+        render json: { error: 'unprocessable_entity', error_message: @doctor.errors.full_messages }, status: :unprocessable_entity
       end
     else
-      render json: { error: 'unauthorized', error_message: 'admin permision required' }, status: :unauthorized
+      render json: { error: 'unauthorized', error_message: 'admin permission required' }, status: :unauthorized
     end
   end
 
@@ -55,7 +65,6 @@ class V1::DoctorsController < ApplicationController
   private
 
   def doctor_params
-    params.require(:doctor).permit(:name, :specialization, :hospital, :description, :cost_per_consult, :image,
-                                   :image_url)
+    params.require(:doctor).permit(:name, :specialization, :hospital, :description, :cost_per_consult, :image)
   end
 end
