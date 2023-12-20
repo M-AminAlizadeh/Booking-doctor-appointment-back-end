@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class V1::DoctorsController < ApplicationController
   before_action :authorize_request, only: %i[index show create destroy]
 
@@ -38,7 +40,7 @@ class V1::DoctorsController < ApplicationController
         render json: @doctor.errors, status: :unprocessable_entity
       end
     else
-      render json: { error: 'unauthorized', error_message: 'admin permision required' }, status: :unauthorized
+      render json: { error: 'unauthorized', error_message: 'admin permission required' }, status: :unauthorized
     end
   end
 
@@ -55,7 +57,6 @@ class V1::DoctorsController < ApplicationController
   private
 
   def doctor_params
-    params.require(:doctor).permit(:name, :specialization, :hospital, :description, :cost_per_consult, :image,
-                                   :image_url)
+    params.require(:doctor).permit(:name, :specialization, :hospital, :description, :cost_per_consult, :image, :image_url)
   end
 end
