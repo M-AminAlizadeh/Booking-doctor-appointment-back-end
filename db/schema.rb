@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_06_111959) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_18_210926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_06_111959) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_url", default: "https://images.unsplash.com/photo-1579684453377-48ec05c6b30a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzA2fHxkb2N0b3J8ZW58MHx8MHx8fDA%3D"
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -72,6 +73,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_06_111959) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "image_url", default: "https://images.unsplash.com/photo-1484069560501-87d72b0c3669?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTM4fHx1c2VyfGVufDB8fDB8fHww"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
