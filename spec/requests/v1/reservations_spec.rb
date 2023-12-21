@@ -56,7 +56,7 @@ RSpec.describe 'V1::Reservations', type: :request do
 
   describe 'DELETE v1/reservations/:id' do
     it 'delete appointment' do
-      reservation = Reservation.create(date_of_appointment: '2019-01-01', doctor_id: doctor.id, user_id: user.id)
+      reservation = Reservation.create(date_of_appointment: '2019-01-01', doctor_id: doctor.id)
       post '/v1/users/login', params: { email: user.email, password: user.password }
 
       delete "/v1/reservations/#{reservation.id}", headers: { 'Authorization' => "Bearer #{json['token']}" }
@@ -67,7 +67,7 @@ RSpec.describe 'V1::Reservations', type: :request do
 
   describe 'DELETE v1/reservations/:id' do
     it 'can not delete appointment (bad user)' do
-      appointment = Reservation.create(date_of_appointment: '2019-01-01', doctor_id: doctor.id, user_id: user.id)
+      appointment = Reservation.create(date_of_appointment: '2019-01-01', doctor_id: doctor.id)
 
       delete "/v1/reservations/#{appointment.id}", headers: { 'Authorization' => "Bearer #{access_token}" }
 
