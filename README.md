@@ -95,6 +95,12 @@ Example commands:
 
 Install the required packages `bundle install`
 
+Create the database with `rails/rake db:create`(ensure setup the correct information of your user in the file config/database.yml)
+
+Execute all the migrations for development `rails/rake db:migrate`
+
+Execute all the migrations for testing `rails/rake db:migrate RAILS_ENV=test`
+
 ### Usage
 
 To run the project use `rails s`
@@ -102,7 +108,15 @@ To fully interact with the backend check this [repo](https://github.com/M-AminAl
 
 ### Run tests
 
-To run tests use `rspec`
+To run tests use `rspec spec`
+
+If you find your computer can't process all the tests at once try executing first for folders:
+
+Integration `rspec spec/integration`
+Models `rspec spec/models`
+Requests `rspec spec/requests/v1`
+
+If this doesn't work, try executing each file individually.
 
 ### Deployment
 
