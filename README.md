@@ -60,12 +60,10 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- LIVE DEMO -->
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Frontend Live Demo](https://booking-doctor-appointment-front-e6pwt8bi5-m-aminalizadeh.vercel.app/)
-- [Backend Documentation]()
+- [Backend Documentation](https://booking-doctor-iqa1.onrender.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -95,24 +93,22 @@ Example commands:
 
 ### Install
 
-Install the required packages `npm install`
+Install the required packages `bundle install`
 
 ### Usage
 
-To run the project use `npm run start`
+To run the project use `rails s`
 To fully interact with the backend check this [repo](https://github.com/M-AminAlizadeh/Booking-doctor-appointment-back-end)
 
 ### Run tests
 
-To run tests use `npm run test`
+To run tests use `rspec`
 
 ### Deployment
 
 You can deploy this project using:
 
-- [Vercle](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
-- [Github pages](https://pages.github.com/)
+- [Render](https://render.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
